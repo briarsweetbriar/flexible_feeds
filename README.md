@@ -15,7 +15,7 @@ Installation
  2. Run bundler: `bundle install`
  3. Run this in your app folder: `rake flexible_feeds:install:migrations`
  4. Run your migrations: `rake db:migrate`
- 5. Add `acts_as_feedable` to the models you want to have feeds
+ 5. Add `flexible_feeds` to the models you want to have feeds
  6. Add `acts_as_eventable` to the models you want to appear in feeds
  7. Add `acts_as_moderator` to the models you want to be moderators
  8. Add `acts_as_follower` to the models you want to be followers
@@ -25,11 +25,11 @@ Creating Feeds
 
 Scenario: We want our User model to have a public activity feed, similar to the one on GitHub.
 
-First, add `acts_as_feedable` to the User model that'll contain the feed. By default, `acts_as_feedable` will create a `has_one` relationship with its feed. This feed will be created automatically for the User in an `after_create` callback. You can then access the feed with a command like `@user.feed`
+First, add `flexible_feeds` to the User model that'll contain the feed. By default, `flexible_feeds` will create a `has_one` relationship with its feed. This feed will be created automatically for the User in an `after_create` callback. You can then access the feed with a command like `@user.feed`
 
 If you want the User to have multiple feeds, you can do so with:
 
-    acts_as_feedable has_many: true
+    flexible_feeds has_many: true
 
 Note that FlexibleFeeds will not automatically create a feed in this case. You must manually create all of them on your own, like so:
 
@@ -131,13 +131,22 @@ Nesting Events
 
 Scenario: You want an event to be commentable.
 
-First, add `acts_as_eventable` and `acts_as_parent` to the parent event. By default, it will accept any eventable model as a child. If you want to be more specific, you can pass in a list of permitted (or unpermitted) children.
+First, pass `is_parent` to the event's `acts_as_eventable`. By default, `is_parent` will accept any eventable model as a child. If you want to be more specific, you can pass in a hash of permitted (or unpermitted) children.
 
-    acts_as_parent # accepts every eventable model that acts_as_child
-    acts_as_parent permitted_children: [Comment, Reference] # accepts only Comment and Reference children
-    acts_as_parent unpermitted_children: [Post] # accepts all acts_as_child except Post
+    # accepts every eventable model that is_child
+    acts_as_eventable is_parent: true
 
-Next, add `acts_as_eventable` and `acts_as_child` to child events. After that, you can add a child to a parent like so:
+    # accepts only Comment and Reference, assuming they're is_child
+    acts_as_eventable is_parent: { permitted_children: [Comment, Reference] }
+
+    # accepts all is_child events, except Post
+    acts_as_eventable is_parent: { unpermitted_children: [Post] }
+
+Next, add `is_child` to child events' `acts_as_eventable`:
+
+    acts_as_eventable is_child: true
+
+After that, you can add a child to a parent like so:
 
     @post = Post.find(params[:id])
     @comment = Comment.create(comment_params)
@@ -149,7 +158,7 @@ You can also do the opposite:
     @comment = Comment.create(comment_params)
     @post.parent_of(@comment)
 
-If you made your Comment model both `acts_as_parent` and `acts_as_child`, you could get threaded comments like so:
+If you made your Comment model both `is_parent` and `is_child`, you could get threaded comments like so:
 
     @parent_comment = Comment.find(params[:id])
     @child_comment = Comment.create(comment_params)
@@ -203,6 +212,13 @@ And you can also get an array of the feeds the user is follow:
 Finally, you can an aggregated array of all the events on the followed feeds:
 
     @user.aggreate_follows
+
+You can also query in the opposite direction:
+
+    @feed.followers
+    @feed.followers_include?(@user)
+    @feed.add_follower(@user)
+    @feed.remove_follower(@user)
 
 Issues
 ------

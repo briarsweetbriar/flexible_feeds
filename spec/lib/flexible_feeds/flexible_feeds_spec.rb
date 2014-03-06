@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module FlexibleFeeds
-  describe ActsAsFeedable do
+  describe FlexibleFeeds do
 
     context "has a has_one feed association by default" do
       before :each do

@@ -1,5 +1,5 @@
 require "flexible_feeds/engine"
-require "flexible_feeds/acts_as_feedable"
+require "flexible_feeds/flexible_feeds"
 require "flexible_feeds/acts_as_eventable"
 require "flexible_feeds/acts_as_moderator"
 require "flexible_feeds/acts_as_follower"

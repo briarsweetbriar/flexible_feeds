@@ -18,6 +18,18 @@ module FlexibleFeeds
 
         cattr_accessor :created_by
         self.created_by = options[:created_by]
+
+        if options[:is_parent] === true
+          acts_as_parent
+        elsif options[:is_parent].present?
+          acts_as_parent options[:is_parent]
+        end
+
+        if options[:is_child] === true
+          acts_as_child
+        elsif options[:is_child].present?
+          acts_as_child options[:is_child]
+        end
       end
     end
 

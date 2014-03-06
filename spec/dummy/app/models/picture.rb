@@ -1,4 +1,3 @@
 class Picture < ActiveRecord::Base
-  acts_as_eventable
-  acts_as_child
+  acts_as_eventable is_child: true
 end

@@ -1,9 +1,9 @@
 module FlexibleFeeds
-  module ActsAsFeedable
+  module HasFlexibleFeed
     extend ActiveSupport::Concern
  
     module ClassMethods
-      def acts_as_feedable(options = {})
+      def flexible_feeds(options = {})
 
         cattr_accessor :has_many_feeds
         self.has_many_feeds = options[:has_many] || false
@@ -29,4 +29,4 @@ module FlexibleFeeds
   end
 end
 
-ActiveRecord::Base.send :include, FlexibleFeeds::ActsAsFeedable
+ActiveRecord::Base.send :include, FlexibleFeeds::HasFlexibleFeed
