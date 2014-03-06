@@ -11,7 +11,7 @@ script:
 deploy:
   provider: rubygems
   api_key:
-    secure: KBicoeTv4ogdPShmwIOAL2M0Kl+2Lpg9A3H2AKWtYLsir4x1e9FAlg1I/OqZyCdG1ButMiF2OAoOxtSPt2xfORSz7UTfuFXuDvEDvI14dKwJSyjYJKaCIp2zyDQM7BUFY/5tskK5QznTrrE/Fr/CmDawwhE3dYep9tKljWpyRj8=
-  gem: controlled_versioning
+    secure: Zi42914bwF4utA631t/kSJsBPZHbCnaIvIcMWbC9UGJF4pTpKaI+K+Qc3wt+Mq86PlH/dyCXcFD8QTBZ3M+GT/7l0sJw12ztuzPwNQyjvvmSFbDpHKviHozrYvHxsw7I0vfCa9cN3iRN1TiI4bDqNvdnwJFvkHu3UUBAeOL1rys=
+  gem: flexible_feeds
   on:
-    repo: timothythehuman/controlled_versioning
+    repo: timothycommoner/flexible_feeds
