@@ -1,4 +1,4 @@
-FlexibleFeeds
+FlexibleFeeds [![Code Climate](https://codeclimate.com/github/timothycommoner/flexible_feeds.png)](https://codeclimate.com/github/timothycommoner/flexible_feeds)
 =====================
 
 FlexibleFeeds allows to you to create dynamic feed systems for a Rails app. As a comparison, check out the [Public Activity](https://github.com/timothycommoner?tab=activity) we find here on GitHub. It lists a variety of events, from creating branches to pushing new versions. With FlexibleFeeds, you can get similar functionality, but with some added perks, such as voting, sorting, and nesting events. This allows FlexibleFeeds to smoothly aggregate system-generated notices with user-generated posts and comments.
