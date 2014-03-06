@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    errors:
+      models:
+        feed:
+          attributes:
+            name:
+              not_unique: "already used within the scope of this feedable"
+        follow:
+          not_unique: "Already following."
+        moderator_join:
+          not_unique: "Already moderating."
