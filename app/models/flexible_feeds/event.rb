@@ -44,14 +44,20 @@ module FlexibleFeeds
     end
 
     def increment_parent_counter
-      ancestors.each do |this_ancestor|
-        this_ancestor.increment(:children_count)
+      FlexibleFeeds::Event.transaction do
+        ancestors.each do |this_ancestor|
+          this_ancestor.increment(:children_count)
+          this_ancestor.save!
+        end
       end
     end
 
     def decrement_parent_counter
-      ancestors.each do |this_ancestor|
-        this_ancestor.decrement(:children_count, children_count + 1)
+      FlexibleFeeds::Event.transaction do
+        ancestors.each do |this_ancestor|
+          this_ancestor.decrement(:children_count, children_count + 1)
+          this_ancestor.save!
+        end
       end
     end
 
