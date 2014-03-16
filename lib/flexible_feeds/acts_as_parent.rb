@@ -32,9 +32,9 @@ module FlexibleFeeds
       end
 
       def parent_of(child)
-        if can_accept_child?(child)
+        if can_accept_child?(child.eventable)
           ancestor = self.try(:ancestor) || self.event
-          child.event.update_attributes(parent: self.event, ancestor: ancestor)
+          child.update_attributes(parent: self.event, ancestor: ancestor)
         end
       end
 

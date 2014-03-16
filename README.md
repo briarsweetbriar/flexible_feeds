@@ -150,19 +150,19 @@ After that, you can add a child to a parent like so:
 
     @post = Post.find(params[:id])
     @comment = Comment.create(comment_params)
-    @comment.child_of(@post)
+    @comment.child_of(@post.event)
 
 You can also do the opposite:
 
     @post = Post.find(params[:id])
     @comment = Comment.create(comment_params)
-    @post.parent_of(@comment)
+    @post.parent_of(@comment.event)
 
 If you made your Comment model both `is_parent` and `is_child`, you could get threaded comments like so:
 
     @parent_comment = Comment.find(params[:id])
     @child_comment = Comment.create(comment_params)
-    @parent_comment.parent_of(@child_comment)
+    @parent_comment.parent_of(@child_comment.event)
 
 You can access children in two ways. If you only want the immediate children:
 

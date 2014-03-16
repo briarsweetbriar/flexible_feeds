@@ -14,7 +14,9 @@ module FlexibleFeeds
 
       def define_association(join_table, association, singular_association)
         define_method association do
-          send(join_table).collect { |join| join.send(singular_association) }
+          send(join_table).includes(singular_association).collect do |join|
+            join.send(singular_association)
+          end
         end
       end
 

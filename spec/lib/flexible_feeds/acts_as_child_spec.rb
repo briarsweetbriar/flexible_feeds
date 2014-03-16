@@ -8,8 +8,8 @@ module FlexibleFeeds
         @post = FactoryGirl.create(:post)
         @comment = FactoryGirl.create(:comment)
         @child_comment = FactoryGirl.create(:comment)
-        @post.parent_of(@comment)
-        @comment.parent_of(@child_comment)
+        @post.parent_of(@comment.event)
+        @comment.parent_of(@child_comment.event)
       end
 
       it "parent" do
@@ -22,9 +22,9 @@ module FlexibleFeeds
     end
 
     it "cannot add itself to a non-parent" do
-      user = FactoryGirl.create(:user)
+      reference = FactoryGirl.create(:reference)
       comment = FactoryGirl.create(:comment)
-      comment.child_of(user)
+      comment.child_of(reference.event)
       expect(comment.parent).to be nil
     end
 
@@ -35,19 +35,19 @@ module FlexibleFeeds
 
       it "comment" do
         comment = FactoryGirl.create(:comment)
-        comment.child_of(@post)
+        comment.child_of(@post.event)
         expect(comment.parent).to eq @post.event
       end
 
       it "reference" do
         reference = FactoryGirl.create(:reference)
-        reference.child_of(@post)
+        reference.child_of(@post.event)
         expect(reference.parent).to eq @post.event
       end
 
       it "picture" do
         picture = FactoryGirl.create(:picture)
-        picture.child_of(@post)
+        picture.child_of(@post.event)
         expect(picture.parent).to eq @post.event
       end
     end
@@ -59,19 +59,19 @@ module FlexibleFeeds
 
       it "comment" do
         comment = FactoryGirl.create(:comment)
-        comment.child_of(@post)
+        comment.child_of(@post.event)
         expect(comment.parent).to eq @post.event
       end
 
       it "reference" do
         reference = FactoryGirl.create(:reference)
-        reference.child_of(@post)
+        reference.child_of(@post.event)
         expect(reference.parent).to eq @post.event
       end
 
       it "picture" do
         picture = FactoryGirl.create(:picture)
-        picture.child_of(@post)
+        picture.child_of(@post.event)
         expect(picture.parent).to be nil
       end
     end
@@ -83,19 +83,19 @@ module FlexibleFeeds
 
       it "comment" do
         comment = FactoryGirl.create(:comment)
-        comment.child_of(@post)
+        comment.child_of(@post.event)
         expect(comment.parent).to eq @post.event
       end
 
       it "reference" do
         reference = FactoryGirl.create(:reference)
-        reference.child_of(@post)
+        reference.child_of(@post.event)
         expect(reference.parent).to be nil
       end
 
       it "picture" do
         picture = FactoryGirl.create(:picture)
-        picture.child_of(@post)
+        picture.child_of(@post.event)
         expect(picture.parent).to eq @post.event
       end
     end

@@ -47,9 +47,7 @@ ActiveRecord::Schema.define(version: 20140227195140) do
     t.integer  "creator_id"
     t.string   "creator_type"
     t.integer  "parent_id"
-    t.string   "parent_type"
     t.integer  "ancestor_id"
-    t.string   "ancestor_type"
     t.integer  "children_count", default: 0,   null: false
     t.integer  "votes_sum",      default: 0,   null: false
     t.integer  "votes_for",      default: 0,   null: false
@@ -60,12 +58,12 @@ ActiveRecord::Schema.define(version: 20140227195140) do
     t.datetime "updated_at"
   end
 
-  add_index "flexible_feeds_events", ["ancestor_id", "ancestor_type"], name: "flexible_feeds_events_on_ancestor", using: :btree
+  add_index "flexible_feeds_events", ["ancestor_id"], name: "index_flexible_feeds_events_on_ancestor_id", using: :btree
   add_index "flexible_feeds_events", ["children_count"], name: "index_flexible_feeds_events_on_children_count", using: :btree
   add_index "flexible_feeds_events", ["controversy"], name: "index_flexible_feeds_events_on_controversy", using: :btree
   add_index "flexible_feeds_events", ["creator_id", "creator_type"], name: "flexible_feeds_events_on_creator", using: :btree
   add_index "flexible_feeds_events", ["eventable_id", "eventable_type"], name: "flexible_feeds_events_on_eventable", using: :btree
-  add_index "flexible_feeds_events", ["parent_id", "parent_type"], name: "flexible_feeds_events_on_parent", using: :btree
+  add_index "flexible_feeds_events", ["parent_id"], name: "index_flexible_feeds_events_on_parent_id", using: :btree
   add_index "flexible_feeds_events", ["popularity"], name: "index_flexible_feeds_events_on_popularity", using: :btree
   add_index "flexible_feeds_events", ["votes_against"], name: "index_flexible_feeds_events_on_votes_against", using: :btree
   add_index "flexible_feeds_events", ["votes_for"], name: "index_flexible_feeds_events_on_votes_for", using: :btree

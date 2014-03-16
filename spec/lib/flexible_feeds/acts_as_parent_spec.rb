@@ -8,8 +8,8 @@ module FlexibleFeeds
         @post = FactoryGirl.create(:post)
         @comment = FactoryGirl.create(:comment)
         @child_comment = FactoryGirl.create(:comment)
-        @post.parent_of(@comment)
-        @comment.parent_of(@child_comment)
+        @post.parent_of(@comment.event)
+        @comment.parent_of(@child_comment.event)
       end
 
       it "children" do
@@ -28,19 +28,19 @@ module FlexibleFeeds
 
       it "comment" do
         comment = FactoryGirl.create(:comment)
-        @post.parent_of(comment)
+        @post.parent_of(comment.event)
         expect(@post.children).to include comment.event
       end
 
       it "reference" do
         reference = FactoryGirl.create(:reference)
-        @post.parent_of(reference)
+        @post.parent_of(reference.event)
         expect(@post.children).to include reference.event
       end
 
       it "picture" do
         picture = FactoryGirl.create(:picture)
-        @post.parent_of(picture)
+        @post.parent_of(picture.event)
         expect(@post.children).to include picture.event
       end
     end
@@ -52,19 +52,19 @@ module FlexibleFeeds
 
       it "comment" do
         comment = FactoryGirl.create(:comment)
-        @post.parent_of(comment)
+        @post.parent_of(comment.event)
         expect(@post.children).to include comment.event
       end
 
       it "reference" do
         reference = FactoryGirl.create(:reference)
-        @post.parent_of(reference)
+        @post.parent_of(reference.event)
         expect(@post.children).to include reference.event
       end
 
       it "picture" do
         picture = FactoryGirl.create(:picture)
-        @post.parent_of(picture)
+        @post.parent_of(picture.event)
         expect(@post.children).to_not include picture.event
       end
     end
@@ -76,19 +76,19 @@ module FlexibleFeeds
 
       it "comment" do
         comment = FactoryGirl.create(:comment)
-        @post.parent_of(comment)
+        @post.parent_of(comment.event)
         expect(@post.children).to include comment.event
       end
 
       it "reference" do
         reference = FactoryGirl.create(:reference)
-        @post.parent_of(reference)
+        @post.parent_of(reference.event)
         expect(@post.children).to_not include reference.event
       end
 
       it "picture" do
         picture = FactoryGirl.create(:picture)
-        @post.parent_of(picture)
+        @post.parent_of(picture.event)
         expect(@post.children).to include picture.event
       end
     end
