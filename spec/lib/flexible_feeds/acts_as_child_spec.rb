@@ -28,6 +28,45 @@ module FlexibleFeeds
       expect(comment.parent).to be nil
     end
 
+    context "prompts its parents to count it and its siblings" do
+      before :each do
+        @post = FactoryGirl.create(:post)
+        @parent_comment_1 = FactoryGirl.create(:comment)
+        @parent_comment_2 = FactoryGirl.create(:comment)
+        @parent_comment_3 = FactoryGirl.create(:comment)
+        @child_of_parent_comment_1 = FactoryGirl.create(:comment)
+        @second_child_of_parent_comment_1 = FactoryGirl.create(:comment)
+        @child_of_parent_comment_2 = FactoryGirl.create(:comment)
+        @parent_comment_1.child_of(@post.event)
+        @parent_comment_2.child_of(@post.event)
+        @parent_comment_3.child_of(@post.event)
+        @child_of_parent_comment_1.child_of(@parent_comment_1.event)
+        @second_child_of_parent_comment_1.child_of(@parent_comment_1.event)
+        @child_of_parent_comment_2.child_of(@parent_comment_2.event)
+      end
+
+      it "so that its ancestor has a tally of all descendants" do
+        expect(@post.event.children_count).to eq 6
+      end
+
+      it "so that its parent has a tally of its descendants" do
+        expect(@parent_comment_1.event.children_count).to eq 2
+        expect(@parent_comment_2.event.children_count).to eq 1
+        expect(@parent_comment_3.event.children_count).to eq 0
+      end
+
+      it "even after destroying a child" do
+        @parent_comment_1.destroy
+        expect(@post.event.children_count).to eq 3
+      end
+
+      it "even after destroying a deep descendant" do
+        @child_of_parent_comment_1.destroy
+        expect(@post.event.children_count).to eq 5
+        expect(@parent_comment_1.event.children_count).to eq 1
+      end
+    end
+
     context "can add itself to any parent type with no permissions" do
       before :each do
         @post = FactoryGirl.create(:post)

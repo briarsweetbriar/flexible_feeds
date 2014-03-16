@@ -43,6 +43,18 @@ module FlexibleFeeds
       save
     end
 
+    def increment_parent_counter
+      ancestors.each do |this_ancestor|
+        this_ancestor.increment(:children_count)
+      end
+    end
+
+    def decrement_parent_counter
+      ancestors.each do |this_ancestor|
+        this_ancestor.decrement(:children_count, children_count + 1)
+      end
+    end
+
     private
     def calculate_controversy(pos, neg)
       return 0 if pos == 0 || neg == 0
@@ -53,6 +65,16 @@ module FlexibleFeeds
     # http://www.evanmiller.org/how-not-to-sort-by-average-rating.html
     def calculate_popularity(pos, n)
       PopularityCalculator.new(pos, n).get_popularity
+    end
+
+    def ancestors
+      ancestors = []
+      next_parent = parent
+      until next_parent.nil? do
+        ancestors.push next_parent
+        next_parent = next_parent.parent
+      end
+      ancestors
     end
   end
 end

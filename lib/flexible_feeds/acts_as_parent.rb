@@ -35,6 +35,7 @@ module FlexibleFeeds
         if can_accept_child?(child.eventable)
           ancestor = self.try(:ancestor) || self.event
           child.update_attributes(parent: self.event, ancestor: ancestor)
+          child.increment_parent_counter
         end
       end
 

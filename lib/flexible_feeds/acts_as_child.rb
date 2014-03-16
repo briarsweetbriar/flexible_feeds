@@ -9,6 +9,8 @@ module FlexibleFeeds
           true
         end
 
+        after_destroy :decrement_parent_counter
+
         send :include, InstanceMethods
       end
     end
@@ -30,6 +32,7 @@ module FlexibleFeeds
         if can_accept_parent?(parent.eventable)
           ancestor = parent.try(:ancestor) || parent
           event.update_attributes(parent: parent, ancestor: ancestor)
+          event.increment_parent_counter
         end
       end
 
@@ -46,6 +49,10 @@ module FlexibleFeeds
 
       def initialize_event
         event || create_event
+      end
+
+      def decrement_parent_counter
+        event.decrement_parent_counter
       end
     end
   end
