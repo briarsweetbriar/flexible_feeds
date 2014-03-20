@@ -47,10 +47,6 @@ module FlexibleFeeds
         end
       end
 
-      def initialize_event
-        event || create_event
-      end
-
       def decrement_parent_counter
         event.decrement_parent_counter
       end

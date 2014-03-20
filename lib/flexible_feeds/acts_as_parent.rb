@@ -49,10 +49,6 @@ module FlexibleFeeds
           child.try(:is_childish?)
         end
       end
-
-      def initialize_event
-        event || create_event
-      end
     end
   end
 end

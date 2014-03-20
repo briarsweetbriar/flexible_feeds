@@ -77,5 +77,13 @@ module FlexibleFeeds
       expect(feed.events.newest.first.eventable).to eq(post)
     end
 
+    it "keeps the same event throughout its lifetime" do
+      feed = FactoryGirl.create(:flexible_feeds_feed)
+      post = FactoryGirl.create(:feed_post)
+      event = post.event
+      post.update_attributes(body: "New Body")
+      expect(event).to eq post.event
+    end
+
   end
 end

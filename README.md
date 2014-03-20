@@ -64,7 +64,7 @@ Then when the user terminates her account, the event will automatically appear i
 
 You can also add an event to feeds manually:
 
-    @membership_termination.add_to_feeds(@another_group.feed, @admin.feed)
+    @membership_termination.post_to_feeds(@another_group.feed, @admin.feed)
 
 Sorting Events
 --------------
@@ -211,7 +211,7 @@ And you can also get an array of the feeds the user is follow:
 
 Finally, you can an aggregated array of all the events on the followed feeds:
 
-    @user.aggreate_follows
+    @user.aggregate_follows
 
 You can also query in the opposite direction:
 

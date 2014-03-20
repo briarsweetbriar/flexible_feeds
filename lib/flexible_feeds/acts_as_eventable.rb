@@ -59,7 +59,7 @@ module FlexibleFeeds
       end
 
       def create_event_for(destinations)
-        event = event || create_event!(creator: creator)
+        create_event!(creator: creator) if event.nil?
         destinations.each do |feed|
           event.event_joins.create!(feed: feed) if feed.present?
         end
