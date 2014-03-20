@@ -34,13 +34,14 @@ module FlexibleFeeds
     end
 
     def calculate_stats
-      self.votes_for = votes.where(value: 1).count
-      self.votes_against = votes.where(value: -1).count
-      self.votes_sum = votes_for - votes_against
-      self.controversy = calculate_controversy(votes_for, votes_against)
-      self.popularity = calculate_popularity(votes_for,
+      votes_for = votes.where(value: 1).count
+      votes_against = votes.where(value: -1).count
+      votes_sum = votes_for - votes_against
+      controversy = calculate_controversy(votes_for, votes_against)
+      popularity = calculate_popularity(votes_for,
         votes_for + votes_against)
-      save
+      update_columns(votes_for: votes_for, votes_against: votes_against,
+        votes_sum: votes_sum, controversy: controversy, popularity: popularity)
     end
 
     def increment_parent_counter

@@ -92,6 +92,12 @@ module FlexibleFeeds
         expect(@event.popularity).to eq @event.send(:calculate_popularity,
           @event.votes_for, @event.votes_against + @event.votes_for)
       end
+
+      it "not updating the event's timestamp" do
+        timestamp = @event.updated_at
+        @event.cast_vote(voter: FactoryGirl.create(:user), value: 1)
+        expect(@event.updated_at).to eq timestamp
+      end
     end
   end
 end
