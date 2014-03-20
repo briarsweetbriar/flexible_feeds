@@ -58,8 +58,12 @@ module FlexibleFeeds
         post_to_feeds(public_send(default_feeds))
       end
 
-      def create_event_for(destinations)
+      def create_event_if_nil
         create_event!(creator: creator) if event.nil?
+      end
+
+      def create_event_for(destinations)
+        create_event_if_nil
         destinations.each do |feed|
           event.event_joins.create!(feed: feed) if feed.present?
         end
