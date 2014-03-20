@@ -37,8 +37,7 @@ ActiveRecord::Schema.define(version: 20140227195140) do
     t.datetime "updated_at"
   end
 
-  add_index "flexible_feeds_event_joins", ["event_id"], name: "index_flexible_feeds_event_joins_on_event_id", using: :btree
-  add_index "flexible_feeds_event_joins", ["feed_id"], name: "index_flexible_feeds_event_joins_on_feed_id", using: :btree
+  add_index "flexible_feeds_event_joins", ["event_id", "feed_id"], name: "flexible_feeds_event_joins_joinery", unique: true, using: :btree
   add_index "flexible_feeds_event_joins", ["sticky"], name: "index_flexible_feeds_event_joins_on_sticky", using: :btree
 
   create_table "flexible_feeds_events", force: true do |t|

@@ -65,7 +65,7 @@ module FlexibleFeeds
       def create_event_for(destinations)
         create_event_if_nil
         destinations.each do |feed|
-          event.event_joins.create!(feed: feed) if feed.present?
+          event.event_joins.where(feed: feed).first_or_create! if feed.present?
         end
       end
     end

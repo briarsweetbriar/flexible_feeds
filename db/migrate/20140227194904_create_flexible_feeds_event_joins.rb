@@ -9,7 +9,9 @@ class CreateFlexibleFeedsEventJoins < ActiveRecord::Migration
     end
 
     add_index :flexible_feeds_event_joins, :sticky
-    add_index :flexible_feeds_event_joins, :feed_id
-    add_index :flexible_feeds_event_joins, :event_id
+    add_index :flexible_feeds_event_joins,
+      [:event_id, :feed_id],
+      unique: true,
+      name: "flexible_feeds_event_joins_joinery"
   end
 end
