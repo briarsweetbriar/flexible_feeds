@@ -19,6 +19,7 @@ Installation
  6. Add `acts_as_eventable` to the models you want to appear in feeds
  7. Add `acts_as_moderator` to the models you want to be moderators
  8. Add `acts_as_follower` to the models you want to be followers
+ 9. Add `acts_as_voter` to the models you want to cast votes
  
 Creating Feeds
 --------------
