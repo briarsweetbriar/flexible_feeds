@@ -5,6 +5,5 @@ FactoryGirl.define do
           class: 'FlexibleFeeds::Event',
           aliases: [:event] do
             eventable { |a| a.association(:comment) }
-            creator { |a| a.association(:user) }
   end
 end

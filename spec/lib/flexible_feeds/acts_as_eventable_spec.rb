@@ -49,25 +49,6 @@ module FlexibleFeeds
       end
     end
 
-    context "assigns a creator" do
-      it "when the creator argument is set and a creator is provided" do
-        user = FactoryGirl.create(:user)
-        post = Post.create(author: user)
-        expect(post.event.creator).to eq user
-      end
-
-      it "unless a creator is not provided" do
-        post = FactoryGirl.create(:post)
-        expect(post.event.creator).to eq nil
-      end
-
-      it "unless it doesn't have a creator argument" do
-        user = FactoryGirl.create(:user)
-        post = FeedPost.create(author: user)
-        expect(post.event.creator).to eq nil
-      end
-    end
-
     it "can touch its event so that they bubble up in a date-sorted list" do
       feed = FactoryGirl.create(:flexible_feeds_feed)
       post = FactoryGirl.create(:feed_post)

@@ -1,7 +1,6 @@
 module FlexibleFeeds
   class Event < ActiveRecord::Base
     belongs_to :ancestor, class_name: "FlexibleFeeds::Event"
-    belongs_to :creator, polymorphic: true
     belongs_to :eventable, polymorphic: true
     belongs_to :parent, class_name: "FlexibleFeeds::Event"
 

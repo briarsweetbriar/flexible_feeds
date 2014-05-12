@@ -49,7 +49,7 @@ First, create an event model. Let's call it MembershipTermination. Within Member
   class MembershipTermination < ActiveRecord::Base
     belongs_to :user
     belongs_to :group
-    acts_as_eventable add_to_feeds: :custom_feeds, created_by: :user
+    acts_as_eventable add_to_feeds: :custom_feeds
 
     def custom_feeds
       [user.feed, group.feed]
@@ -61,7 +61,7 @@ Then when the user terminates her account, the event will automatically appear i
     MembershipTermination(user: @user, group: @group)
     @user.feed.events # => returns a list of events, including the termination
 
-`acts_as_eventable` takes two arguments. First, `add_to_feeds` accepts a pointer to a method, which should return an array of feeds you want to post the event to after_save. Secondly, `created_by` accepts an association which assigns the creator of the event to the event. This is especially helpful for comments, posts, and other user-generated events.
+`acts_as_eventable` take an `add_to_feeds` arguments, which in turn accepts a pointer to a method, which should return an array of feeds you want to post the event to after_save.
 
 You can also add an event to feeds manually:
 

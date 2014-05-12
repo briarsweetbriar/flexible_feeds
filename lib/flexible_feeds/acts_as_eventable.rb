@@ -16,9 +16,6 @@ module FlexibleFeeds
         cattr_accessor :default_feeds
         self.default_feeds = options[:add_to_feeds] || :default_custom_feeds
 
-        cattr_accessor :created_by
-        self.created_by = options[:created_by]
-
         if options[:is_parent] === true
           acts_as_parent
         elsif options[:is_parent].present?
@@ -50,16 +47,12 @@ module FlexibleFeeds
       end
 
       private
-      def creator
-        send(created_by) if created_by.present?
-      end
-
       def post_to_default_feeds
         post_to_feeds(public_send(default_feeds))
       end
 
       def create_event_if_nil
-        create_event!(creator: creator) if event.nil?
+        create_event! if event.nil?
       end
 
       def create_event_for(destinations)

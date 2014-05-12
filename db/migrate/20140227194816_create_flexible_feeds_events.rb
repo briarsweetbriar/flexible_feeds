@@ -3,8 +3,6 @@ class CreateFlexibleFeedsEvents < ActiveRecord::Migration
     create_table :flexible_feeds_events do |t|
       t.string :eventable_type
       t.integer :eventable_id
-      t.integer :creator_id
-      t.string :creator_type
 
       t.integer :parent_id
       t.integer :ancestor_id
@@ -30,8 +28,5 @@ class CreateFlexibleFeedsEvents < ActiveRecord::Migration
     add_index :flexible_feeds_events,
       [:eventable_id, :eventable_type],
       name: "flexible_feeds_events_on_eventable"
-    add_index :flexible_feeds_events,
-      [:creator_id, :creator_type],
-      name: "flexible_feeds_events_on_creator"
   end
 end

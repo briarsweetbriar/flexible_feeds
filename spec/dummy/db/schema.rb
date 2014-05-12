@@ -43,8 +43,6 @@ ActiveRecord::Schema.define(version: 20140227195140) do
   create_table "flexible_feeds_events", force: true do |t|
     t.string   "eventable_type"
     t.integer  "eventable_id"
-    t.integer  "creator_id"
-    t.string   "creator_type"
     t.integer  "parent_id"
     t.integer  "ancestor_id"
     t.integer  "children_count", default: 0,   null: false
@@ -60,7 +58,6 @@ ActiveRecord::Schema.define(version: 20140227195140) do
   add_index "flexible_feeds_events", ["ancestor_id"], name: "index_flexible_feeds_events_on_ancestor_id", using: :btree
   add_index "flexible_feeds_events", ["children_count"], name: "index_flexible_feeds_events_on_children_count", using: :btree
   add_index "flexible_feeds_events", ["controversy"], name: "index_flexible_feeds_events_on_controversy", using: :btree
-  add_index "flexible_feeds_events", ["creator_id", "creator_type"], name: "flexible_feeds_events_on_creator", using: :btree
   add_index "flexible_feeds_events", ["eventable_id", "eventable_type"], name: "flexible_feeds_events_on_eventable", using: :btree
   add_index "flexible_feeds_events", ["parent_id"], name: "index_flexible_feeds_events_on_parent_id", using: :btree
   add_index "flexible_feeds_events", ["popularity"], name: "index_flexible_feeds_events_on_popularity", using: :btree

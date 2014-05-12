@@ -50,10 +50,6 @@ module FlexibleFeeds
       it "parent" do
         expect(@event).to belong_to(:parent)
       end
-
-      it "creator" do
-        expect(@event).to belong_to(:creator)
-      end
     end
 
     context "has many" do
